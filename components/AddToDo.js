@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View,FlatList,TextInput,Button,ScrollView } from 'react-native';
+import { StyleSheet, Text, View,FlatList,TextInput,Button,ScrollView,Alert,TouchableWithoutFeedback } from 'react-native';
 
 export default function AddToDo({setTodos})
 {
@@ -13,13 +13,27 @@ export default function AddToDo({setTodos})
 
     const submitToDo=()=>
     {
+        if(text.length>3)
+        {
+            setTodos((prevtodos)=>{
+           
+                return [
+                    {text:text,key:Math.random().toString()},
+                    ...prevtodos
+                ]
+            }
+            )
+        }
         
-        setTodos((prevtodos)=>{
-            return [
-                {text:text,key:Math.random().toString()},
-                ...prevtodos
-            ]
-        })
+        
+            
+            else{
+                Alert.alert("OOPS","Todos must be over 3 chars long",[
+                    {text:"Understood",onPress:()=>console.log('alert closed!')} 
+                ]);
+
+            }
+       
        
 
     }
